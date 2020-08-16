@@ -1,0 +1,1920 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        #map {
+            width: 1789px;
+            height: 1212px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/manskun_reitti_3067_yhdistettycopy_1.js"></script>
+        <script src="data/manskun_reitti_3067_yhdistetty_2.js"></script>
+        <script src="data/varrenjuottolat_3.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:25, minZoom:13
+        }).fitBounds([[60.145297230963905,24.84678959841742],[60.23066175014793,25.04672760693168]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_StamenTonerLite_0');
+        map.getPane('pane_StamenTonerLite_0').style.zIndex = 400;
+        var layer_StamenTonerLite_0 = L.tileLayer('http://tile.stamen.com/toner-lite/{z}/{x}/{y}.png', {
+            pane: 'pane_StamenTonerLite_0',
+            opacity: 1.0,
+            attribution: '<a href="http://maps.stamen.com/">Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL</a>',
+            minZoom: 10,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_StamenTonerLite_0;
+        map.addLayer(layer_StamenTonerLite_0);
+        function pop_manskun_reitti_3067_yhdistettycopy_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['full_id'] !== null ? autolinker.link(feature.properties['full_id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['osm_id'] !== null ? autolinker.link(feature.properties['osm_id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['osm_type'] !== null ? autolinker.link(feature.properties['osm_type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bicycle'] !== null ? autolinker.link(feature.properties['bicycle'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['foot'] !== null ? autolinker.link(feature.properties['foot'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['guideposted_leads_to_ref'] !== null ? autolinker.link(feature.properties['guideposted_leads_to_ref'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['highway'] !== null ? autolinker.link(feature.properties['highway'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['junction'] !== null ? autolinker.link(feature.properties['junction'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes'] !== null ? autolinker.link(feature.properties['lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lit'] !== null ? autolinker.link(feature.properties['lit'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['maxspeed'] !== null ? autolinker.link(feature.properties['maxspeed'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name'] !== null ? autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name:fi'] !== null ? autolinker.link(feature.properties['name:fi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name:sv'] !== null ? autolinker.link(feature.properties['name:sv'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['oneway'] !== null ? autolinker.link(feature.properties['oneway'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:both'] !== null ? autolinker.link(feature.properties['parking:lane:both'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['placement'] !== null ? autolinker.link(feature.properties['placement'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['snowplowing'] !== null ? autolinker.link(feature.properties['snowplowing'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['start_date'] !== null ? autolinker.link(feature.properties['start_date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['surface'] !== null ? autolinker.link(feature.properties['surface'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['was:priority_road'] !== null ? autolinker.link(feature.properties['was:priority_road'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['zone:traffic'] !== null ? autolinker.link(feature.properties['zone:traffic'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:left'] !== null ? autolinker.link(feature.properties['parking:lane:left'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bridge'] !== null ? autolinker.link(feature.properties['bridge'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['layer'] !== null ? autolinker.link(feature.properties['layer'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['hazmat'] !== null ? autolinker.link(feature.properties['hazmat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['leads_to_ref'] !== null ? autolinker.link(feature.properties['leads_to_ref'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:reason'] !== null ? autolinker.link(feature.properties['parking:condition:reason'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['paved:date'] !== null ? autolinker.link(feature.properties['paved:date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['winter_service'] !== null ? autolinker.link(feature.properties['winter_service'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['note:history'] !== null ? autolinker.link(feature.properties['note:history'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:right'] !== null ? autolinker.link(feature.properties['parking:lane:right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['priority_road'] !== null ? autolinker.link(feature.properties['priority_road'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ref'] !== null ? autolinker.link(feature.properties['ref'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cycleway:right'] !== null ? autolinker.link(feature.properties['cycleway:right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fi:hkr:kunnossapitoluokka'] !== null ? autolinker.link(feature.properties['fi:hkr:kunnossapitoluokka'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['loc_name'] !== null ? autolinker.link(feature.properties['loc_name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['halting'] !== null ? autolinker.link(feature.properties['halting'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['int_ref'] !== null ? autolinker.link(feature.properties['int_ref'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bicycle:backward'] !== null ? autolinker.link(feature.properties['bicycle:backward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['motor_vehicle:lanes'] !== null ? autolinker.link(feature.properties['motor_vehicle:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['psv:lanes'] !== null ? autolinker.link(feature.properties['psv:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['turn:lanes'] !== null ? autolinker.link(feature.properties['turn:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['source:maxspeed'] !== null ? autolinker.link(feature.properties['source:maxspeed'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['goods:lanes:conditional'] !== null ? autolinker.link(feature.properties['goods:lanes:conditional'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['hgv:lanes:conditional'] !== null ? autolinker.link(feature.properties['hgv:lanes:conditional'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:psv'] !== null ? autolinker.link(feature.properties['lanes:psv'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['paved:date:lanes'] !== null ? autolinker.link(feature.properties['paved:date:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['snowplowing:category'] !== null ? autolinker.link(feature.properties['snowplowing:category'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['was:maxspeed'] !== null ? autolinker.link(feature.properties['was:maxspeed'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['winter_service:priority'] !== null ? autolinker.link(feature.properties['winter_service:priority'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['old_name'] !== null ? autolinker.link(feature.properties['old_name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['paved:date:previous'] !== null ? autolinker.link(feature.properties['paved:date:previous'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:forward'] !== null ? autolinker.link(feature.properties['lanes:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['overtaking:hgv'] !== null ? autolinker.link(feature.properties['overtaking:hgv'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['destination'] !== null ? autolinker.link(feature.properties['destination'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:both:reason'] !== null ? autolinker.link(feature.properties['parking:condition:both:reason'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:left:reason'] !== null ? autolinker.link(feature.properties['parking:condition:left:reason'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:reason'] !== null ? autolinker.link(feature.properties['parking:condition:right:reason'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:bus'] !== null ? autolinker.link(feature.properties['lanes:bus'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['construction:start_date'] !== null ? autolinker.link(feature.properties['construction:start_date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['divider'] !== null ? autolinker.link(feature.properties['divider'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['guideposted_leads_to_ref:forward'] !== null ? autolinker.link(feature.properties['guideposted_leads_to_ref:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['moped'] !== null ? autolinker.link(feature.properties['moped'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['maxheight'] !== null ? autolinker.link(feature.properties['maxheight'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tunnel'] !== null ? autolinker.link(feature.properties['tunnel'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['hazard'] !== null ? autolinker.link(feature.properties['hazard'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['source:hazard'] !== null ? autolinker.link(feature.properties['source:hazard'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lit:perceived'] !== null ? autolinker.link(feature.properties['lit:perceived'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['priority_road:forward'] !== null ? autolinker.link(feature.properties['priority_road:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['embankment'] !== null ? autolinker.link(feature.properties['embankment'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:backward'] !== null ? autolinker.link(feature.properties['lanes:backward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['maxspeed:backward'] !== null ? autolinker.link(feature.properties['maxspeed:backward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tram:lanes:backward'] !== null ? autolinker.link(feature.properties['tram:lanes:backward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['turn:lanes:backward'] !== null ? autolinker.link(feature.properties['turn:lanes:backward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['turn:lanes:forward'] !== null ? autolinker.link(feature.properties['turn:lanes:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['transit:lanes'] !== null ? autolinker.link(feature.properties['transit:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['scenery:category'] !== null ? autolinker.link(feature.properties['scenery:category'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['scenery:rating'] !== null ? autolinker.link(feature.properties['scenery:rating'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['hazmat:A'] !== null ? autolinker.link(feature.properties['hazmat:A'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:goods:times'] !== null ? autolinker.link(feature.properties['lanes:goods:times'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:hgv:times'] !== null ? autolinker.link(feature.properties['lanes:hgv:times'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['old_name:sv'] !== null ? autolinker.link(feature.properties['old_name:sv'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['maxlength'] !== null ? autolinker.link(feature.properties['maxlength'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tram:lanes:forward'] !== null ? autolinker.link(feature.properties['tram:lanes:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['filming:location:movie:wikidata'] !== null ? autolinker.link(feature.properties['filming:location:movie:wikidata'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['maxlength:psv'] !== null ? autolinker.link(feature.properties['maxlength:psv'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['destination:lanes'] !== null ? autolinker.link(feature.properties['destination:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['destination:ref:lanes'] !== null ? autolinker.link(feature.properties['destination:ref:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['destination:ref:to:lanes'] !== null ? autolinker.link(feature.properties['destination:ref:to:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['turn:bus:lanes'] !== null ? autolinker.link(feature.properties['turn:bus:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['overtaking'] !== null ? autolinker.link(feature.properties['overtaking'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['source:parking:lane:right'] !== null ? autolinker.link(feature.properties['source:parking:lane:right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['filming:background:movie:wikidata'] !== null ? autolinker.link(feature.properties['filming:background:movie:wikidata'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['change:lanes'] !== null ? autolinker.link(feature.properties['change:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['snowplowing:priority'] !== null ? autolinker.link(feature.properties['snowplowing:priority'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['halting:right'] !== null ? autolinker.link(feature.properties['halting:right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['was:priority_road:backward'] !== null ? autolinker.link(feature.properties['was:priority_road:backward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['divider:left'] !== null ? autolinker.link(feature.properties['divider:left'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['resurfaced:date'] !== null ? autolinker.link(feature.properties['resurfaced:date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:09:We:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:09:We:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right'] !== null ? autolinker.link(feature.properties['parking:condition:right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:default'] !== null ? autolinker.link(feature.properties['parking:condition:right:default'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:residents'] !== null ? autolinker.link(feature.properties['parking:condition:right:residents'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:time_interval'] !== null ? autolinker.link(feature.properties['parking:condition:right:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:right:parallel'] !== null ? autolinker.link(feature.properties['parking:lane:right:parallel'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:ticket:zone'] !== null ? autolinker.link(feature.properties['parking:ticket:zone'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:except'] !== null ? autolinker.link(feature.properties['parking:condition:right:except'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:right:no_stopping'] !== null ? autolinker.link(feature.properties['parking:lane:right:no_stopping'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['destination:ref:to'] !== null ? autolinker.link(feature.properties['destination:ref:to'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:00:Mo:spring'] !== null ? autolinker.link(feature.properties['traffic:hourly:00:Mo:spring'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:00:Sa:fall'] !== null ? autolinker.link(feature.properties['traffic:hourly:00:Sa:fall'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:00:Sa:spring:wet'] !== null ? autolinker.link(feature.properties['traffic:hourly:00:Sa:spring:wet'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:00:Sa:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:00:Sa:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:00:Tu:fall'] !== null ? autolinker.link(feature.properties['traffic:hourly:00:Tu:fall'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:01:Fr:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:01:Fr:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:08:Mo:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:08:Mo:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:09:Mo:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:09:Mo:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:10:Mo:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:10:Mo:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:10:We:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:10:We:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:11:Tu:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:11:Tu:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:11:Tu:winter:snowfall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:11:Tu:winter:snowfall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:12:Tu:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:12:Tu:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:12:We:winter'] !== null ? autolinker.link(feature.properties['traffic:hourly:12:We:winter'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:13:Fr:winter:snowfall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:13:Fr:winter:snowfall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:14:Fr:winter:snowfall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:14:Fr:winter:snowfall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:16:Fr:spring:wet'] !== null ? autolinker.link(feature.properties['traffic:hourly:16:Fr:spring:wet'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:16:Tu:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:16:Tu:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:16:We:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:16:We:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:1730:We:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:1730:We:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:17:Mo:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:17:Mo:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:18:We:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:18:We:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:19:Thu:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:19:Thu:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:20:Su:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:20:Su:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:2130:Tu:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:2130:Tu:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:21:Su:fall'] !== null ? autolinker.link(feature.properties['traffic:hourly:21:Su:fall'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:21:Su:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:21:Su:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:21:Thu:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:21:Thu:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:21:Tu:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:21:Tu:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:21:We:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:21:We:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:22:Fr:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:22:Fr:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:22:Mo:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:22:Mo:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:22:Sa:spring'] !== null ? autolinker.link(feature.properties['traffic:hourly:22:Sa:spring'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:22:Tu:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:22:Tu:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Fr:fall:wet'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Fr:fall:wet'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Fr:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Fr:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Sa:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Sa:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Sa:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Sa:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Su:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Su:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Su:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Su:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Tu:spring'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Tu:spring'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['psv:maxlength'] !== null ? autolinker.link(feature.properties['psv:maxlength'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['guidesposted_leads_to_ref'] !== null ? autolinker.link(feature.properties['guidesposted_leads_to_ref'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['operator'] !== null ? autolinker.link(feature.properties['operator'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:13:Tu:fall'] !== null ? autolinker.link(feature.properties['traffic:hourly:13:Tu:fall'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:21:Tu:fall'] !== null ? autolinker.link(feature.properties['traffic:hourly:21:Tu:fall'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:22:Mo:fall'] !== null ? autolinker.link(feature.properties['traffic:hourly:22:Mo:fall'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['note:fi'] !== null ? autolinker.link(feature.properties['note:fi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['destination:ref'] !== null ? autolinker.link(feature.properties['destination:ref'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:00:Tu:spring'] !== null ? autolinker.link(feature.properties['traffic:hourly:00:Tu:spring'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:01:Su:winter:wet:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:01:Su:winter:wet:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:0730:Tu:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:0730:Tu:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:0930:Mo:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:0930:Mo:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:10:Sa:fall:wet:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:10:Sa:fall:wet:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:11:Thu:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:11:Thu:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:11:We:spring'] !== null ? autolinker.link(feature.properties['traffic:hourly:11:We:spring'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:12:Tu:winter'] !== null ? autolinker.link(feature.properties['traffic:hourly:12:Tu:winter'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:14:Tu:winter:snowfall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:14:Tu:winter:snowfall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:17:Thu:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:17:Thu:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:18:Fr:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:18:Fr:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:18:Sa:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:18:Sa:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:20:Thu:spring:wet'] !== null ? autolinker.link(feature.properties['traffic:hourly:20:Thu:spring:wet'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:22:Mo:spring'] !== null ? autolinker.link(feature.properties['traffic:hourly:22:Mo:spring'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:22:Su:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:22:Su:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:22:We:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:22:We:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Sa:fall'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Sa:fall'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['wikidata'] !== null ? autolinker.link(feature.properties['wikidata'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['wikipedia'] !== null ? autolinker.link(feature.properties['wikipedia'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:reason:left'] !== null ? autolinker.link(feature.properties['parking:condition:reason:left'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:2'] !== null ? autolinker.link(feature.properties['parking:condition:right:2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:2:time_interval'] !== null ? autolinker.link(feature.properties['parking:condition:right:2:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:right:placement'] !== null ? autolinker.link(feature.properties['parking:right:placement'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:goods:conditional'] !== null ? autolinker.link(feature.properties['lanes:goods:conditional'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:hgv:conditional'] !== null ? autolinker.link(feature.properties['lanes:hgv:conditional'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['was:priority_road:forward'] !== null ? autolinker.link(feature.properties['was:priority_road:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['halting:left'] !== null ? autolinker.link(feature.properties['halting:left'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['overtaking:backward'] !== null ? autolinker.link(feature.properties['overtaking:backward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['paved:date:lane:right'] !== null ? autolinker.link(feature.properties['paved:date:lane:right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['paved:date:lanes:previous'] !== null ? autolinker.link(feature.properties['paved:date:lanes:previous'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['hazmat:forward'] !== null ? autolinker.link(feature.properties['hazmat:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['no_overtaking'] !== null ? autolinker.link(feature.properties['no_overtaking'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:reason:right'] !== null ? autolinker.link(feature.properties['parking:condition:reason:right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['built:before'] !== null ? autolinker.link(feature.properties['built:before'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['halting:times'] !== null ? autolinker.link(feature.properties['halting:times'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Fr:fall'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Fr:fall'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:08:Mo:fall'] !== null ? autolinker.link(feature.properties['traffic:hourly:08:Mo:fall'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['note:start_date'] !== null ? autolinker.link(feature.properties['note:start_date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['was:zone:traffic'] !== null ? autolinker.link(feature.properties['was:zone:traffic'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bus:lanes'] !== null ? autolinker.link(feature.properties['bus:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:psv:location'] !== null ? autolinker.link(feature.properties['lanes:psv:location'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['taxi:lanes'] !== null ? autolinker.link(feature.properties['taxi:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['vehicle:lanes'] !== null ? autolinker.link(feature.properties['vehicle:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:right'] !== null ? autolinker.link(feature.properties['parking:right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:both'] !== null ? autolinker.link(feature.properties['parking:condition:both'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:both:default'] !== null ? autolinker.link(feature.properties['parking:condition:both:default'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:both:residents'] !== null ? autolinker.link(feature.properties['parking:condition:both:residents'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:both:time_interval'] !== null ? autolinker.link(feature.properties['parking:condition:both:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['was:lanes'] !== null ? autolinker.link(feature.properties['was:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['was:lanes:bus'] !== null ? autolinker.link(feature.properties['was:lanes:bus'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['old_name:fi'] !== null ? autolinker.link(feature.properties['old_name:fi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:14:We:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:14:We:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:19:Mo:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:19:Mo:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['destination:symbol:lanes'] !== null ? autolinker.link(feature.properties['destination:symbol:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:right:reason'] !== null ? autolinker.link(feature.properties['parking:lane:right:reason'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['segregated'] !== null ? autolinker.link(feature.properties['segregated'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['start_date:present_shape'] !== null ? autolinker.link(feature.properties['start_date:present_shape'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:default'] !== null ? autolinker.link(feature.properties['parking:condition:default'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:left'] !== null ? autolinker.link(feature.properties['parking:left'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['was:oneway'] !== null ? autolinker.link(feature.properties['was:oneway'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:21:Thu:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:21:Thu:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Sa:spring:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Sa:spring:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:goods'] !== null ? autolinker.link(feature.properties['lanes:goods'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:hgv'] !== null ? autolinker.link(feature.properties['lanes:hgv'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['paved:date:previous:lanes'] !== null ? autolinker.link(feature.properties['paved:date:previous:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['priority_road:backward'] !== null ? autolinker.link(feature.properties['priority_road:backward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['start_date:bridge'] !== null ? autolinker.link(feature.properties['start_date:bridge'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:maxstay'] !== null ? autolinker.link(feature.properties['parking:condition:right:maxstay'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['note:parking'] !== null ? autolinker.link(feature.properties['note:parking'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:left'] !== null ? autolinker.link(feature.properties['parking:condition:left'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:right:no_parking'] !== null ? autolinker.link(feature.properties['parking:lane:right:no_parking'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['incline'] !== null ? autolinker.link(feature.properties['incline'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['embedded_rails'] !== null ? autolinker.link(feature.properties['embedded_rails'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['maxheight:to_be'] !== null ? autolinker.link(feature.properties['maxheight:to_be'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:not_intended'] !== null ? autolinker.link(feature.properties['parking:condition:right:not_intended'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:left:2'] !== null ? autolinker.link(feature.properties['parking:condition:left:2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:left:2:time_interval'] !== null ? autolinker.link(feature.properties['parking:condition:left:2:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:left:time_interval'] !== null ? autolinker.link(feature.properties['parking:condition:left:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:both:parallel'] !== null ? autolinker.link(feature.properties['parking:lane:both:parallel'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FIXME:parking'] !== null ? autolinker.link(feature.properties['FIXME:parking'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['hazard:nighttime'] !== null ? autolinker.link(feature.properties['hazard:nighttime'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:left:default'] !== null ? autolinker.link(feature.properties['parking:condition:left:default'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:left:parallel'] !== null ? autolinker.link(feature.properties['parking:lane:left:parallel'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:left:maxstay'] !== null ? autolinker.link(feature.properties['parking:condition:left:maxstay'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['sett'] !== null ? autolinker.link(feature.properties['sett'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['source:lanes'] !== null ? autolinker.link(feature.properties['source:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:2:right'] !== null ? autolinker.link(feature.properties['parking:condition:2:right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:2:right:time_interval'] !== null ? autolinker.link(feature.properties['parking:condition:2:right:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:private'] !== null ? autolinker.link(feature.properties['parking:condition:right:private'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:vehicles'] !== null ? autolinker.link(feature.properties['parking:condition:right:vehicles'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:right:except'] !== null ? autolinker.link(feature.properties['parking:lane:right:except'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CHECKME'] !== null ? autolinker.link(feature.properties['CHECKME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:right:not_intended'] !== null ? autolinker.link(feature.properties['parking:lane:right:not_intended'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['motor_vehicle:lanes:conditional'] !== null ? autolinker.link(feature.properties['motor_vehicle:lanes:conditional'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:fee:times'] !== null ? autolinker.link(feature.properties['parking:fee:times'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['horse'] !== null ? autolinker.link(feature.properties['horse'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['paved:date:bus_stop'] !== null ? autolinker.link(feature.properties['paved:date:bus_stop'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cycleway:right:segregated'] !== null ? autolinker.link(feature.properties['cycleway:right:segregated'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['sidewalk'] !== null ? autolinker.link(feature.properties['sidewalk'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lane:starts'] !== null ? autolinker.link(feature.properties['lane:starts'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['paved:date:lane:2nd_from_right'] !== null ? autolinker.link(feature.properties['paved:date:lane:2nd_from_right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['note:historic'] !== null ? autolinker.link(feature.properties['note:historic'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:bus'] !== null ? autolinker.link(feature.properties['parking:condition:right:bus'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:bus:time_interval'] !== null ? autolinker.link(feature.properties['parking:condition:right:bus:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:right:bus'] !== null ? autolinker.link(feature.properties['parking:lane:right:bus'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:left:except'] !== null ? autolinker.link(feature.properties['parking:lane:left:except'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:left:except:time_interval'] !== null ? autolinker.link(feature.properties['parking:lane:left:except:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:not_intended'] !== null ? autolinker.link(feature.properties['parking:condition:not_intended'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:right:capacity'] !== null ? autolinker.link(feature.properties['parking:lane:right:capacity'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:left:residents'] !== null ? autolinker.link(feature.properties['parking:condition:left:residents'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['width:lanes'] !== null ? autolinker.link(feature.properties['width:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:both:2'] !== null ? autolinker.link(feature.properties['parking:condition:both:2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:both:2:time_interval'] !== null ? autolinker.link(feature.properties['parking:condition:both:2:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic_calming:lanes'] !== null ? autolinker.link(feature.properties['traffic_calming:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:2:left'] !== null ? autolinker.link(feature.properties['parking:condition:2:left'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:2:left:maxstay'] !== null ? autolinker.link(feature.properties['parking:condition:2:left:maxstay'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:2:left:time_interval'] !== null ? autolinker.link(feature.properties['parking:condition:2:left:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['maxheight:bus_stop'] !== null ? autolinker.link(feature.properties['maxheight:bus_stop'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['no_stopping'] !== null ? autolinker.link(feature.properties['no_stopping'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['access'] !== null ? autolinker.link(feature.properties['access'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cycleway:left'] !== null ? autolinker.link(feature.properties['cycleway:left'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_manskun_reitti_3067_yhdistettycopy_1_0() {
+            return {
+                pane: 'pane_manskun_reitti_3067_yhdistettycopy_1',
+                opacity: 0.6,
+                color: 'rgba(0,239,251,0.6)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 11.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_manskun_reitti_3067_yhdistettycopy_1');
+        map.getPane('pane_manskun_reitti_3067_yhdistettycopy_1').style.zIndex = 401;
+        map.getPane('pane_manskun_reitti_3067_yhdistettycopy_1').style['mix-blend-mode'] = 'normal';
+        var layer_manskun_reitti_3067_yhdistettycopy_1 = new L.geoJson(json_manskun_reitti_3067_yhdistettycopy_1, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_manskun_reitti_3067_yhdistettycopy_1',
+            layerName: 'layer_manskun_reitti_3067_yhdistettycopy_1',
+            pane: 'pane_manskun_reitti_3067_yhdistettycopy_1',
+            onEachFeature: pop_manskun_reitti_3067_yhdistettycopy_1,
+            style: style_manskun_reitti_3067_yhdistettycopy_1_0,
+        });
+        bounds_group.addLayer(layer_manskun_reitti_3067_yhdistettycopy_1);
+        map.addLayer(layer_manskun_reitti_3067_yhdistettycopy_1);
+        function pop_manskun_reitti_3067_yhdistetty_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['full_id'] !== null ? autolinker.link(feature.properties['full_id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['osm_id'] !== null ? autolinker.link(feature.properties['osm_id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['osm_type'] !== null ? autolinker.link(feature.properties['osm_type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bicycle'] !== null ? autolinker.link(feature.properties['bicycle'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['foot'] !== null ? autolinker.link(feature.properties['foot'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['guideposted_leads_to_ref'] !== null ? autolinker.link(feature.properties['guideposted_leads_to_ref'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['highway'] !== null ? autolinker.link(feature.properties['highway'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['junction'] !== null ? autolinker.link(feature.properties['junction'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes'] !== null ? autolinker.link(feature.properties['lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lit'] !== null ? autolinker.link(feature.properties['lit'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['maxspeed'] !== null ? autolinker.link(feature.properties['maxspeed'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name'] !== null ? autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name:fi'] !== null ? autolinker.link(feature.properties['name:fi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name:sv'] !== null ? autolinker.link(feature.properties['name:sv'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['oneway'] !== null ? autolinker.link(feature.properties['oneway'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:both'] !== null ? autolinker.link(feature.properties['parking:lane:both'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['placement'] !== null ? autolinker.link(feature.properties['placement'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['snowplowing'] !== null ? autolinker.link(feature.properties['snowplowing'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['start_date'] !== null ? autolinker.link(feature.properties['start_date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['surface'] !== null ? autolinker.link(feature.properties['surface'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['was:priority_road'] !== null ? autolinker.link(feature.properties['was:priority_road'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['zone:traffic'] !== null ? autolinker.link(feature.properties['zone:traffic'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:left'] !== null ? autolinker.link(feature.properties['parking:lane:left'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bridge'] !== null ? autolinker.link(feature.properties['bridge'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['layer'] !== null ? autolinker.link(feature.properties['layer'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['hazmat'] !== null ? autolinker.link(feature.properties['hazmat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['leads_to_ref'] !== null ? autolinker.link(feature.properties['leads_to_ref'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:reason'] !== null ? autolinker.link(feature.properties['parking:condition:reason'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['paved:date'] !== null ? autolinker.link(feature.properties['paved:date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['winter_service'] !== null ? autolinker.link(feature.properties['winter_service'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['note:history'] !== null ? autolinker.link(feature.properties['note:history'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:right'] !== null ? autolinker.link(feature.properties['parking:lane:right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['priority_road'] !== null ? autolinker.link(feature.properties['priority_road'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ref'] !== null ? autolinker.link(feature.properties['ref'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cycleway:right'] !== null ? autolinker.link(feature.properties['cycleway:right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fi:hkr:kunnossapitoluokka'] !== null ? autolinker.link(feature.properties['fi:hkr:kunnossapitoluokka'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['loc_name'] !== null ? autolinker.link(feature.properties['loc_name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['halting'] !== null ? autolinker.link(feature.properties['halting'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['int_ref'] !== null ? autolinker.link(feature.properties['int_ref'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bicycle:backward'] !== null ? autolinker.link(feature.properties['bicycle:backward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['motor_vehicle:lanes'] !== null ? autolinker.link(feature.properties['motor_vehicle:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['psv:lanes'] !== null ? autolinker.link(feature.properties['psv:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['turn:lanes'] !== null ? autolinker.link(feature.properties['turn:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['source:maxspeed'] !== null ? autolinker.link(feature.properties['source:maxspeed'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['goods:lanes:conditional'] !== null ? autolinker.link(feature.properties['goods:lanes:conditional'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['hgv:lanes:conditional'] !== null ? autolinker.link(feature.properties['hgv:lanes:conditional'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:psv'] !== null ? autolinker.link(feature.properties['lanes:psv'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['paved:date:lanes'] !== null ? autolinker.link(feature.properties['paved:date:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['snowplowing:category'] !== null ? autolinker.link(feature.properties['snowplowing:category'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['was:maxspeed'] !== null ? autolinker.link(feature.properties['was:maxspeed'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['winter_service:priority'] !== null ? autolinker.link(feature.properties['winter_service:priority'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['old_name'] !== null ? autolinker.link(feature.properties['old_name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['paved:date:previous'] !== null ? autolinker.link(feature.properties['paved:date:previous'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:forward'] !== null ? autolinker.link(feature.properties['lanes:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['overtaking:hgv'] !== null ? autolinker.link(feature.properties['overtaking:hgv'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['destination'] !== null ? autolinker.link(feature.properties['destination'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:both:reason'] !== null ? autolinker.link(feature.properties['parking:condition:both:reason'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:left:reason'] !== null ? autolinker.link(feature.properties['parking:condition:left:reason'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:reason'] !== null ? autolinker.link(feature.properties['parking:condition:right:reason'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:bus'] !== null ? autolinker.link(feature.properties['lanes:bus'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['construction:start_date'] !== null ? autolinker.link(feature.properties['construction:start_date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['divider'] !== null ? autolinker.link(feature.properties['divider'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['guideposted_leads_to_ref:forward'] !== null ? autolinker.link(feature.properties['guideposted_leads_to_ref:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['moped'] !== null ? autolinker.link(feature.properties['moped'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['maxheight'] !== null ? autolinker.link(feature.properties['maxheight'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tunnel'] !== null ? autolinker.link(feature.properties['tunnel'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['hazard'] !== null ? autolinker.link(feature.properties['hazard'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['source:hazard'] !== null ? autolinker.link(feature.properties['source:hazard'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lit:perceived'] !== null ? autolinker.link(feature.properties['lit:perceived'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['priority_road:forward'] !== null ? autolinker.link(feature.properties['priority_road:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['embankment'] !== null ? autolinker.link(feature.properties['embankment'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:backward'] !== null ? autolinker.link(feature.properties['lanes:backward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['maxspeed:backward'] !== null ? autolinker.link(feature.properties['maxspeed:backward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tram:lanes:backward'] !== null ? autolinker.link(feature.properties['tram:lanes:backward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['turn:lanes:backward'] !== null ? autolinker.link(feature.properties['turn:lanes:backward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['turn:lanes:forward'] !== null ? autolinker.link(feature.properties['turn:lanes:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['transit:lanes'] !== null ? autolinker.link(feature.properties['transit:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['scenery:category'] !== null ? autolinker.link(feature.properties['scenery:category'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['scenery:rating'] !== null ? autolinker.link(feature.properties['scenery:rating'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['hazmat:A'] !== null ? autolinker.link(feature.properties['hazmat:A'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:goods:times'] !== null ? autolinker.link(feature.properties['lanes:goods:times'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:hgv:times'] !== null ? autolinker.link(feature.properties['lanes:hgv:times'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['old_name:sv'] !== null ? autolinker.link(feature.properties['old_name:sv'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['maxlength'] !== null ? autolinker.link(feature.properties['maxlength'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tram:lanes:forward'] !== null ? autolinker.link(feature.properties['tram:lanes:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['filming:location:movie:wikidata'] !== null ? autolinker.link(feature.properties['filming:location:movie:wikidata'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['maxlength:psv'] !== null ? autolinker.link(feature.properties['maxlength:psv'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['destination:lanes'] !== null ? autolinker.link(feature.properties['destination:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['destination:ref:lanes'] !== null ? autolinker.link(feature.properties['destination:ref:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['destination:ref:to:lanes'] !== null ? autolinker.link(feature.properties['destination:ref:to:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['turn:bus:lanes'] !== null ? autolinker.link(feature.properties['turn:bus:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['overtaking'] !== null ? autolinker.link(feature.properties['overtaking'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['source:parking:lane:right'] !== null ? autolinker.link(feature.properties['source:parking:lane:right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['filming:background:movie:wikidata'] !== null ? autolinker.link(feature.properties['filming:background:movie:wikidata'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['change:lanes'] !== null ? autolinker.link(feature.properties['change:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['snowplowing:priority'] !== null ? autolinker.link(feature.properties['snowplowing:priority'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['halting:right'] !== null ? autolinker.link(feature.properties['halting:right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['was:priority_road:backward'] !== null ? autolinker.link(feature.properties['was:priority_road:backward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['divider:left'] !== null ? autolinker.link(feature.properties['divider:left'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['resurfaced:date'] !== null ? autolinker.link(feature.properties['resurfaced:date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:09:We:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:09:We:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right'] !== null ? autolinker.link(feature.properties['parking:condition:right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:default'] !== null ? autolinker.link(feature.properties['parking:condition:right:default'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:residents'] !== null ? autolinker.link(feature.properties['parking:condition:right:residents'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:time_interval'] !== null ? autolinker.link(feature.properties['parking:condition:right:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:right:parallel'] !== null ? autolinker.link(feature.properties['parking:lane:right:parallel'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:ticket:zone'] !== null ? autolinker.link(feature.properties['parking:ticket:zone'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:except'] !== null ? autolinker.link(feature.properties['parking:condition:right:except'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:right:no_stopping'] !== null ? autolinker.link(feature.properties['parking:lane:right:no_stopping'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['destination:ref:to'] !== null ? autolinker.link(feature.properties['destination:ref:to'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:00:Mo:spring'] !== null ? autolinker.link(feature.properties['traffic:hourly:00:Mo:spring'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:00:Sa:fall'] !== null ? autolinker.link(feature.properties['traffic:hourly:00:Sa:fall'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:00:Sa:spring:wet'] !== null ? autolinker.link(feature.properties['traffic:hourly:00:Sa:spring:wet'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:00:Sa:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:00:Sa:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:00:Tu:fall'] !== null ? autolinker.link(feature.properties['traffic:hourly:00:Tu:fall'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:01:Fr:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:01:Fr:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:08:Mo:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:08:Mo:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:09:Mo:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:09:Mo:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:10:Mo:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:10:Mo:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:10:We:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:10:We:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:11:Tu:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:11:Tu:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:11:Tu:winter:snowfall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:11:Tu:winter:snowfall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:12:Tu:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:12:Tu:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:12:We:winter'] !== null ? autolinker.link(feature.properties['traffic:hourly:12:We:winter'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:13:Fr:winter:snowfall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:13:Fr:winter:snowfall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:14:Fr:winter:snowfall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:14:Fr:winter:snowfall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:16:Fr:spring:wet'] !== null ? autolinker.link(feature.properties['traffic:hourly:16:Fr:spring:wet'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:16:Tu:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:16:Tu:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:16:We:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:16:We:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:1730:We:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:1730:We:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:17:Mo:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:17:Mo:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:18:We:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:18:We:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:19:Thu:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:19:Thu:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:20:Su:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:20:Su:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:2130:Tu:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:2130:Tu:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:21:Su:fall'] !== null ? autolinker.link(feature.properties['traffic:hourly:21:Su:fall'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:21:Su:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:21:Su:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:21:Thu:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:21:Thu:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:21:Tu:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:21:Tu:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:21:We:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:21:We:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:22:Fr:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:22:Fr:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:22:Mo:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:22:Mo:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:22:Sa:spring'] !== null ? autolinker.link(feature.properties['traffic:hourly:22:Sa:spring'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:22:Tu:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:22:Tu:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Fr:fall:wet'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Fr:fall:wet'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Fr:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Fr:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Sa:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Sa:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Sa:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Sa:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Su:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Su:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Su:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Su:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Tu:spring'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Tu:spring'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['psv:maxlength'] !== null ? autolinker.link(feature.properties['psv:maxlength'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['guidesposted_leads_to_ref'] !== null ? autolinker.link(feature.properties['guidesposted_leads_to_ref'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['operator'] !== null ? autolinker.link(feature.properties['operator'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:13:Tu:fall'] !== null ? autolinker.link(feature.properties['traffic:hourly:13:Tu:fall'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:21:Tu:fall'] !== null ? autolinker.link(feature.properties['traffic:hourly:21:Tu:fall'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:22:Mo:fall'] !== null ? autolinker.link(feature.properties['traffic:hourly:22:Mo:fall'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['note:fi'] !== null ? autolinker.link(feature.properties['note:fi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['destination:ref'] !== null ? autolinker.link(feature.properties['destination:ref'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:00:Tu:spring'] !== null ? autolinker.link(feature.properties['traffic:hourly:00:Tu:spring'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:01:Su:winter:wet:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:01:Su:winter:wet:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:0730:Tu:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:0730:Tu:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:0930:Mo:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:0930:Mo:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:10:Sa:fall:wet:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:10:Sa:fall:wet:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:11:Thu:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:11:Thu:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:11:We:spring'] !== null ? autolinker.link(feature.properties['traffic:hourly:11:We:spring'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:12:Tu:winter'] !== null ? autolinker.link(feature.properties['traffic:hourly:12:Tu:winter'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:14:Tu:winter:snowfall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:14:Tu:winter:snowfall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:17:Thu:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:17:Thu:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:18:Fr:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:18:Fr:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:18:Sa:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:18:Sa:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:20:Thu:spring:wet'] !== null ? autolinker.link(feature.properties['traffic:hourly:20:Thu:spring:wet'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:22:Mo:spring'] !== null ? autolinker.link(feature.properties['traffic:hourly:22:Mo:spring'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:22:Su:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:22:Su:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:22:We:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:22:We:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Sa:fall'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Sa:fall'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['wikidata'] !== null ? autolinker.link(feature.properties['wikidata'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['wikipedia'] !== null ? autolinker.link(feature.properties['wikipedia'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:reason:left'] !== null ? autolinker.link(feature.properties['parking:condition:reason:left'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:2'] !== null ? autolinker.link(feature.properties['parking:condition:right:2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:2:time_interval'] !== null ? autolinker.link(feature.properties['parking:condition:right:2:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:right:placement'] !== null ? autolinker.link(feature.properties['parking:right:placement'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:goods:conditional'] !== null ? autolinker.link(feature.properties['lanes:goods:conditional'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:hgv:conditional'] !== null ? autolinker.link(feature.properties['lanes:hgv:conditional'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['was:priority_road:forward'] !== null ? autolinker.link(feature.properties['was:priority_road:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['halting:left'] !== null ? autolinker.link(feature.properties['halting:left'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['overtaking:backward'] !== null ? autolinker.link(feature.properties['overtaking:backward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['paved:date:lane:right'] !== null ? autolinker.link(feature.properties['paved:date:lane:right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['paved:date:lanes:previous'] !== null ? autolinker.link(feature.properties['paved:date:lanes:previous'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['hazmat:forward'] !== null ? autolinker.link(feature.properties['hazmat:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['no_overtaking'] !== null ? autolinker.link(feature.properties['no_overtaking'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:reason:right'] !== null ? autolinker.link(feature.properties['parking:condition:reason:right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['built:before'] !== null ? autolinker.link(feature.properties['built:before'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['halting:times'] !== null ? autolinker.link(feature.properties['halting:times'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Fr:fall'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Fr:fall'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:08:Mo:fall'] !== null ? autolinker.link(feature.properties['traffic:hourly:08:Mo:fall'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['note:start_date'] !== null ? autolinker.link(feature.properties['note:start_date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['was:zone:traffic'] !== null ? autolinker.link(feature.properties['was:zone:traffic'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bus:lanes'] !== null ? autolinker.link(feature.properties['bus:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:psv:location'] !== null ? autolinker.link(feature.properties['lanes:psv:location'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['taxi:lanes'] !== null ? autolinker.link(feature.properties['taxi:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['vehicle:lanes'] !== null ? autolinker.link(feature.properties['vehicle:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:right'] !== null ? autolinker.link(feature.properties['parking:right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:both'] !== null ? autolinker.link(feature.properties['parking:condition:both'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:both:default'] !== null ? autolinker.link(feature.properties['parking:condition:both:default'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:both:residents'] !== null ? autolinker.link(feature.properties['parking:condition:both:residents'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:both:time_interval'] !== null ? autolinker.link(feature.properties['parking:condition:both:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['was:lanes'] !== null ? autolinker.link(feature.properties['was:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['was:lanes:bus'] !== null ? autolinker.link(feature.properties['was:lanes:bus'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['old_name:fi'] !== null ? autolinker.link(feature.properties['old_name:fi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:14:We:winter:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:14:We:winter:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:19:Mo:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:19:Mo:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['destination:symbol:lanes'] !== null ? autolinker.link(feature.properties['destination:symbol:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:right:reason'] !== null ? autolinker.link(feature.properties['parking:lane:right:reason'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['segregated'] !== null ? autolinker.link(feature.properties['segregated'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['start_date:present_shape'] !== null ? autolinker.link(feature.properties['start_date:present_shape'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:default'] !== null ? autolinker.link(feature.properties['parking:condition:default'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:left'] !== null ? autolinker.link(feature.properties['parking:left'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['was:oneway'] !== null ? autolinker.link(feature.properties['was:oneway'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:21:Thu:fall:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:21:Thu:fall:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic:hourly:23:Sa:spring:forward'] !== null ? autolinker.link(feature.properties['traffic:hourly:23:Sa:spring:forward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:goods'] !== null ? autolinker.link(feature.properties['lanes:goods'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lanes:hgv'] !== null ? autolinker.link(feature.properties['lanes:hgv'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['paved:date:previous:lanes'] !== null ? autolinker.link(feature.properties['paved:date:previous:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['priority_road:backward'] !== null ? autolinker.link(feature.properties['priority_road:backward'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['start_date:bridge'] !== null ? autolinker.link(feature.properties['start_date:bridge'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:maxstay'] !== null ? autolinker.link(feature.properties['parking:condition:right:maxstay'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['note:parking'] !== null ? autolinker.link(feature.properties['note:parking'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:left'] !== null ? autolinker.link(feature.properties['parking:condition:left'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:right:no_parking'] !== null ? autolinker.link(feature.properties['parking:lane:right:no_parking'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['incline'] !== null ? autolinker.link(feature.properties['incline'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['embedded_rails'] !== null ? autolinker.link(feature.properties['embedded_rails'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['maxheight:to_be'] !== null ? autolinker.link(feature.properties['maxheight:to_be'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:not_intended'] !== null ? autolinker.link(feature.properties['parking:condition:right:not_intended'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:left:2'] !== null ? autolinker.link(feature.properties['parking:condition:left:2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:left:2:time_interval'] !== null ? autolinker.link(feature.properties['parking:condition:left:2:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:left:time_interval'] !== null ? autolinker.link(feature.properties['parking:condition:left:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:both:parallel'] !== null ? autolinker.link(feature.properties['parking:lane:both:parallel'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FIXME:parking'] !== null ? autolinker.link(feature.properties['FIXME:parking'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['hazard:nighttime'] !== null ? autolinker.link(feature.properties['hazard:nighttime'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:left:default'] !== null ? autolinker.link(feature.properties['parking:condition:left:default'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:left:parallel'] !== null ? autolinker.link(feature.properties['parking:lane:left:parallel'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:left:maxstay'] !== null ? autolinker.link(feature.properties['parking:condition:left:maxstay'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['sett'] !== null ? autolinker.link(feature.properties['sett'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['source:lanes'] !== null ? autolinker.link(feature.properties['source:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:2:right'] !== null ? autolinker.link(feature.properties['parking:condition:2:right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:2:right:time_interval'] !== null ? autolinker.link(feature.properties['parking:condition:2:right:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:private'] !== null ? autolinker.link(feature.properties['parking:condition:right:private'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:vehicles'] !== null ? autolinker.link(feature.properties['parking:condition:right:vehicles'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:right:except'] !== null ? autolinker.link(feature.properties['parking:lane:right:except'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CHECKME'] !== null ? autolinker.link(feature.properties['CHECKME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:right:not_intended'] !== null ? autolinker.link(feature.properties['parking:lane:right:not_intended'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['motor_vehicle:lanes:conditional'] !== null ? autolinker.link(feature.properties['motor_vehicle:lanes:conditional'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:fee:times'] !== null ? autolinker.link(feature.properties['parking:fee:times'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['horse'] !== null ? autolinker.link(feature.properties['horse'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['paved:date:bus_stop'] !== null ? autolinker.link(feature.properties['paved:date:bus_stop'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cycleway:right:segregated'] !== null ? autolinker.link(feature.properties['cycleway:right:segregated'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['sidewalk'] !== null ? autolinker.link(feature.properties['sidewalk'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lane:starts'] !== null ? autolinker.link(feature.properties['lane:starts'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['paved:date:lane:2nd_from_right'] !== null ? autolinker.link(feature.properties['paved:date:lane:2nd_from_right'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['note:historic'] !== null ? autolinker.link(feature.properties['note:historic'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:bus'] !== null ? autolinker.link(feature.properties['parking:condition:right:bus'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:right:bus:time_interval'] !== null ? autolinker.link(feature.properties['parking:condition:right:bus:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:right:bus'] !== null ? autolinker.link(feature.properties['parking:lane:right:bus'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:left:except'] !== null ? autolinker.link(feature.properties['parking:lane:left:except'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:left:except:time_interval'] !== null ? autolinker.link(feature.properties['parking:lane:left:except:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:not_intended'] !== null ? autolinker.link(feature.properties['parking:condition:not_intended'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:lane:right:capacity'] !== null ? autolinker.link(feature.properties['parking:lane:right:capacity'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:left:residents'] !== null ? autolinker.link(feature.properties['parking:condition:left:residents'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['width:lanes'] !== null ? autolinker.link(feature.properties['width:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:both:2'] !== null ? autolinker.link(feature.properties['parking:condition:both:2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:both:2:time_interval'] !== null ? autolinker.link(feature.properties['parking:condition:both:2:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['traffic_calming:lanes'] !== null ? autolinker.link(feature.properties['traffic_calming:lanes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:2:left'] !== null ? autolinker.link(feature.properties['parking:condition:2:left'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:2:left:maxstay'] !== null ? autolinker.link(feature.properties['parking:condition:2:left:maxstay'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parking:condition:2:left:time_interval'] !== null ? autolinker.link(feature.properties['parking:condition:2:left:time_interval'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['maxheight:bus_stop'] !== null ? autolinker.link(feature.properties['maxheight:bus_stop'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['no_stopping'] !== null ? autolinker.link(feature.properties['no_stopping'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['access'] !== null ? autolinker.link(feature.properties['access'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cycleway:left'] !== null ? autolinker.link(feature.properties['cycleway:left'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_manskun_reitti_3067_yhdistetty_2_0() {
+            return {
+                pane: 'pane_manskun_reitti_3067_yhdistetty_2',
+                opacity: 0.8,
+                color: 'rgba(0,0,237,0.8)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 5.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_manskun_reitti_3067_yhdistetty_2');
+        map.getPane('pane_manskun_reitti_3067_yhdistetty_2').style.zIndex = 402;
+        map.getPane('pane_manskun_reitti_3067_yhdistetty_2').style['mix-blend-mode'] = 'normal';
+        var layer_manskun_reitti_3067_yhdistetty_2 = new L.geoJson(json_manskun_reitti_3067_yhdistetty_2, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_manskun_reitti_3067_yhdistetty_2',
+            layerName: 'layer_manskun_reitti_3067_yhdistetty_2',
+            pane: 'pane_manskun_reitti_3067_yhdistetty_2',
+            onEachFeature: pop_manskun_reitti_3067_yhdistetty_2,
+            style: style_manskun_reitti_3067_yhdistetty_2_0,
+        });
+        bounds_group.addLayer(layer_manskun_reitti_3067_yhdistetty_2);
+        map.addLayer(layer_manskun_reitti_3067_yhdistetty_2);
+        function pop_varrenjuottolat_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Baari</th>\
+                        <td>' + (feature.properties['Baari'] !== null ? autolinker.link(feature.properties['Baari'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Järjestysluku</th>\
+                        <td>' + (feature.properties['Järjestysluku'] !== null ? autolinker.link(feature.properties['Järjestysluku'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['kuva_url'] !== null ? '<img src="images/' + String(feature.properties['kuva_url']).replace(/[\\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_varrenjuottolat_3_0() {
+            return {
+                pane: 'pane_varrenjuottolat_3',
+                radius: 8.2,
+                opacity: 1,
+                color: 'rgba(1,18,255,0.6941176470588235)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(55,95,255,0.788235294117647)',
+                interactive: true,
+            }
+        }
+        function style_varrenjuottolat_3_1() {
+            return {
+                pane: 'pane_varrenjuottolat_3',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_varrenjuottolat_3');
+        map.getPane('pane_varrenjuottolat_3').style.zIndex = 403;
+        map.getPane('pane_varrenjuottolat_3').style['mix-blend-mode'] = 'normal';
+        var layer_varrenjuottolat_3 = new L.geoJson.multiStyle(json_varrenjuottolat_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_varrenjuottolat_3',
+            layerName: 'layer_varrenjuottolat_3',
+            pane: 'pane_varrenjuottolat_3',
+            onEachFeature: pop_varrenjuottolat_3,
+            pointToLayers: [function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_varrenjuottolat_3_0(feature));
+            },function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_varrenjuottolat_3_1(feature));
+            },
+        ]});
+        bounds_group.addLayer(layer_varrenjuottolat_3);
+        map.addLayer(layer_varrenjuottolat_3);
+        setBounds();
+        </script>
+    </body>
+</html>
