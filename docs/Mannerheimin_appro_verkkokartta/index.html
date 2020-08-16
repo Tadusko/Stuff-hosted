@@ -9,9 +9,11 @@
         <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
         <style>
-        #map {
-            width: 1789px;
-            height: 1212px;
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
         }
         </style>
         <title></title>
@@ -40,12 +42,11 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:25, minZoom:13
-        }).fitBounds([[60.145297230963905,24.84678959841742],[60.23066175014793,25.04672760693168]]);
+        }).fitBounds([[60.1611619470495,24.848448816255168],[60.20808839633446,24.984246883946273]]);
         var hash = new L.Hash(map);
-		map.panTo(new L.LatLng(60.179585, 24.928525))
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
-        L.control.locate({locateOptions: {maxZoom: 17}}).addTo(map);
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
@@ -55,7 +56,7 @@
             pane: 'pane_StamenTonerLite_0',
             opacity: 1.0,
             attribution: '<a href="http://maps.stamen.com/">Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL</a>',
-            minZoom: 10,
+            minZoom: 13,
             maxZoom: 25,
             minNativeZoom: 0,
             maxNativeZoom: 20
